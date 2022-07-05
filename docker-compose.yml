@@ -32,3 +32,21 @@ services:
       - "5433"
       - --schema
       - app
+    labels:
+      - traefik.http.routers.postgraphile.rule=Host(`localhost`) && PathPrefix(`/graphql`)
+      - traefik.http.services.postgraphile.loadbalancer.server.port=5433
+
+  frontend:
+    build:
+      context: ./frontend
+    labels:
+      - traefik.http.routers.frontend.rule=Host(`localhost`)
+
+  router:
+    image: traefik:v2.5
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    command:
+      - --providers.docker
+    ports:
+      - 80:80

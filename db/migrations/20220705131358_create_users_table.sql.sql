@@ -2,7 +2,8 @@
 
 create type app.gender as enum (
   'male',
-  'female'
+  'female',
+  'other'
 );
 
 create table app.users (

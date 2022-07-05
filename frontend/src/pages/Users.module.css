@@ -1,0 +1,7 @@
+.mainContent {
+  display: flex;
+}
+
+.userList {
+  flex: 1;
+}

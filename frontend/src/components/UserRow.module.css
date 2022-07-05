@@ -1,0 +1,11 @@
+.row, .activeRow {
+  border-bottom: 1px solid #ccc;
+  padding: 5px 10px;
+  margin: 0 10px;
+  cursor: pointer;
+}
+
+.activeRow {
+  background: red;
+}
+

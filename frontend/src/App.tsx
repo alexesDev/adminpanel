@@ -4,7 +4,7 @@ import './global.css'
 
 import * as React from 'react'
 import { hot } from 'react-hot-loader/root'
-import { Link, Router } from '@reach/router'
+import { Router } from '@reach/router'
 import { Provider, createClient } from 'urql'
 import { Page } from './pages/utils'
 import { NotFound } from './pages/NotFound'
@@ -14,15 +14,11 @@ const pages: Page[] = [Users]
 
 const client = createClient({
   url: '/graphql',
+  requestPolicy: 'cache-and-network',
 })
 
 export const App = hot(() => (
   <Provider value={client}>
-    <div>
-      {pages.map(({ meta }) => (
-        <Link key={meta.path} to={meta.path}>{meta.menuLabel}</Link>
-      ))}
-    </div>
     <Router>
       {pages.map(({ Content: PageContent, meta }) => (
         <PageContent path={meta.path} key={meta.path} />

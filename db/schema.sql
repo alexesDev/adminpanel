@@ -22,7 +22,8 @@ CREATE SCHEMA app;
 
 CREATE TYPE app.gender AS ENUM (
     'male',
-    'female'
+    'female',
+    'other'
 );
 
 

@@ -1,0 +1,39 @@
+{
+  "name": "frontend",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "yarn y && vite",
+    "build": "yarn y && tsc && vite build",
+    "preview": "vite preview",
+    "y": "graphql-codegen --config codegen.yml"
+  },
+  "dependencies": {
+    "@ant-design/icons": "^4.7.0",
+    "@reach/router": "^1.3.4",
+    "@urql/core": "^2.5.0",
+    "antd": "^4.21.5",
+    "graphql": "^16.5.0",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "react-hot-loader": "^4.13.0",
+    "urql": "^2.2.2"
+  },
+  "devDependencies": {
+    "@graphql-codegen/cli": "2.7.0",
+    "@graphql-codegen/introspection": "2.1.1",
+    "@graphql-codegen/near-operation-file-preset": "^2.2.15",
+    "@graphql-codegen/typescript": "2.6.0",
+    "@graphql-codegen/typescript-document-nodes": "2.2.14",
+    "@graphql-codegen/typescript-operations": "2.4.3",
+    "@graphql-codegen/typescript-urql": "^3.5.13",
+    "@graphql-codegen/urql-introspection": "2.1.1",
+    "@types/reach__router": "^1.3.10",
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
+    "@vitejs/plugin-react": "^1.3.0",
+    "prettier": "^2.7.1",
+    "typescript": "^4.6.3",
+    "vite": "^2.9.9"
+  }
+}

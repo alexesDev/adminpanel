@@ -1,0 +1,22 @@
+.main-layout {
+  min-height: 100vh;
+  background: #f0f2f5;
+}
+
+.logo {
+  height: 32px;
+  margin: 16px;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+.site-layout-sub-header-background {
+  background: #fff;
+}
+
+.main-content {
+  padding: 10px 20px;
+}

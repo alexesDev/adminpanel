@@ -5,4 +5,4 @@ ENV NODE_ENV=production
 COPY package.json yarn.lock ./
 RUN yarn
 
-ENTRYPOINT ["./node_modules/.bin/postgraphile", "-n", "0.0.0.0", "--append-plugins", "postgraphile-plugin-connection-filter"]
+ENTRYPOINT ["./node_modules/.bin/postgraphile", "-n", "0.0.0.0", "--append-plugins", "postgraphile-plugin-connection-filter,@graphile-contrib/pg-simplify-inflector"]

@@ -1,10 +1,15 @@
+import * as React from 'react'
 import { gql } from '@urql/core'
-import { Button, Table, PageHeader } from 'antd'
+import { Modal, Button, Table, PageHeader } from 'antd'
 import { createPageMeta, nonNullable } from './utils'
-import { useUsersPageQuery } from './Users.generated'
+import { useUsersPageQuery, useUpdateUserMutation, UsersPageQuery } from './Users.generated'
 
-export const Content = () => {
+type Row = NonNullable<NonNullable<NonNullable<UsersPageQuery['users']>['nodes']>[0]>
+
+export function Content() {
+  const [editedRow, setEditedRow] = React.useState<Row | null>(null)
   const [res] = useUsersPageQuery()
+  const [, updateUser] = useUpdateUserMutation()
 
   if (res.fetching) {
     return <p>Loading...</p>
@@ -20,13 +25,19 @@ export const Content = () => {
     return <p>No Access</p>
   }
 
+  const handleModalCancel = () => setEditedRow(null)
+  const handleModalOk = () => {}
+
   return (
     <>
-      <PageHeader title="Users" extra={<Button>Create</Button>} />
+      <PageHeader title="Users" />
       <Table
         dataSource={rows.filter(nonNullable)}
         pagination={false}
         rowKey="id"
+        onRow={(record) => ({
+          onClick: () => setEditedRow(record),
+        })}
         columns={[
           {
             key: 'id',
@@ -50,13 +61,18 @@ export const Content = () => {
           },
         ]}
       />
+      <Modal title="Edit User" visible={editedRow !== null} onOk={handleModalOk} onCancel={handleModalCancel}>
+        <p>Some contents...</p>
+        <p>Some contents...</p>
+        <p>Some contents...</p>
+      </Modal>
     </>
   )
 }
 
 export const meta = createPageMeta({
   path: '/',
-  menuLabel: 'Пользователи',
+  menuLabel: 'Users',
 })
 
 gql`
@@ -68,6 +84,12 @@ gql`
         name
         phone
       }
+    }
+  }
+
+  mutation UpdateUserMutation($input: UpdateUserInput!) {
+    updateUser(input: $input) {
+      clientMutationId
     }
   }
 `

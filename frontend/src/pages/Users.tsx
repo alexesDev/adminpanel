@@ -15,8 +15,8 @@ export function Content() {
   const [selectedRow, setSelectedRow] = React.useState<Row | null>(null)
   const [editedRow, setEditedRow] = React.useState<Row | null>(null)
   const [res, reexecuteQuery] = useUsersPageQuery()
-  const [, updateUser] = useUpdateUserMutation()
-  const [, deleteUser] = useDeleteUserMutation()
+  const [updateUserState, updateUser] = useUpdateUserMutation()
+  const [deleteUserState, deleteUser] = useDeleteUserMutation()
 
   if (res.fetching) {
     return <p>Loading...</p>
@@ -75,7 +75,9 @@ export function Content() {
           {selectedRow && (
             <>
               <Button onClick={editSelectedRow}>Edit</Button>
-              <Button onClick={deleteSelectedRow}>Delete</Button>
+              <Button onClick={deleteSelectedRow} loading={deleteUserState.fetching}>
+                Delete
+              </Button>
             </>
           )}
         </div>
@@ -85,7 +87,7 @@ export function Content() {
         visible={editedRow !== null}
         onCancel={closeModal}
         footer={[
-          <Button form="editForm" key="submit" htmlType="submit">
+          <Button form="editForm" key="submit" htmlType="submit" loading={updateUserState.fetching}>
             Submit
           </Button>,
         ]}

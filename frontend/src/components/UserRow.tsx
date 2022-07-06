@@ -1,6 +1,3 @@
-/* eslint-disable jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */
-
-import * as React from 'react';
 import { gql } from '@urql/core';
 import { UserRowData } from './UserRow.generated';
 import s from './UserRow.module.css';
@@ -17,7 +14,7 @@ export function UserRow({ data, selected, onClick }: Props) {
   const rowClassName = selected ? s.activeRow : s.row
 
   return (
-    <div className={rowClassName} onClick={onClick}>
+    <div className={rowClassName} onClick={onClick} onKeyDown={onClick} role="presentation">
       <div>Email: {data.email}</div>
       <div>Name: {data.name || LONG_DASH}</div>
       <div>Phone: {data.phone || LONG_DASH}</div>

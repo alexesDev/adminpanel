@@ -2,7 +2,6 @@ import 'react-hot-loader'
 import 'antd/dist/antd.css'
 import './global.css'
 
-import * as React from 'react'
 import { hot } from 'react-hot-loader/root'
 import { Router } from '@reach/router'
 import { Provider, createClient } from 'urql'

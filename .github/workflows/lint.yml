@@ -14,7 +14,8 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: "14"
-          cache: "yarn"
+          cache: yarn
+          cache-dependency-path: frontend/yarn.lock
       - run: npm install -g yarn
       - run: yarn install --frozen-lockfile
       - run: yarn lint

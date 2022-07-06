@@ -19,9 +19,15 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - name: Build and push
+      - name: Build and push frontend
         uses: docker/build-push-action@v3
         with:
           context: ./frontend
           push: true
           tags: alexes/adminpanel-frontend:latest
+      - name: Build and push postgraphile
+        uses: docker/build-push-action@v3
+        with:
+          context: ./postgraphile
+          push: true
+          tags: alexes/adminpanel-postgraphile:latest

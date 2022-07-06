@@ -7,6 +7,7 @@
     "build": "yarn y && tsc && vite build",
     "preview": "vite preview",
     "update-schema": "get-graphql-schema http://localhost:5433/graphql > schema.graphql",
+    "format": "prettier --write src",
     "lint": "eslint src --ext .js,.jsx,.ts,.tsx --fix",
     "y": "graphql-codegen --config codegen.yml"
   },

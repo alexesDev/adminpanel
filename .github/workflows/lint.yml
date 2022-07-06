@@ -18,4 +18,4 @@ jobs:
           cache-dependency-path: frontend/yarn.lock
       - run: npm install -g yarn
       - run: yarn install --frozen-lockfile
-      - run: yarn lint
+      - run: yarn lint && yarn prettier --check src

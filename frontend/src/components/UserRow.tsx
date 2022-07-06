@@ -1,10 +1,10 @@
-import { gql } from '@urql/core';
-import { UserRowData } from './UserRow.generated';
-import s from './UserRow.module.css';
+import { gql } from '@urql/core'
+import { UserRowData } from './UserRow.generated'
+import s from './UserRow.module.css'
 
 type Props = {
-  readonly data: UserRowData;
-  readonly selected?: boolean;
+  readonly data: UserRowData
+  readonly selected?: boolean
   readonly onClick?: () => void
 }
 

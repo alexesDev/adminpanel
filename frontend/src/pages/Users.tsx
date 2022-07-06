@@ -50,7 +50,7 @@ export function Content() {
 
   const saveEditedRow = (values: any) => {
     if (editedRow) {
-      const variables = { input: { id: editedRow.id, patch: values } };
+      const variables = { input: { id: editedRow.id, patch: values } }
       updateUser(variables).then(closeModal).then(resetSelect).catch(showError)
     }
   }

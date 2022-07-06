@@ -39,11 +39,13 @@ services:
   frontend:
     build:
       context: ./frontend
+    depends_on: [postgraphile]
     labels:
       - traefik.http.routers.frontend.rule=Host(`localhost`)
 
   router:
     image: traefik:v2.5
+    depends_on: [postgraphile, frontend]
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     command:

@@ -1,0 +1,31 @@
+run:
+  go: '1.17'
+
+linters:
+  enable-all: true
+  disable:
+    - exhaustivestruct
+    - exhaustruct
+    - gomnd
+    - gci
+    - gofumpt
+    - testpackage
+    - ireturn
+    - maligned # deprecated
+    - golint # deprecated
+    - interfacer # deprecated
+    - scopelint # deprecated
+
+issues:
+  exclude-rules:
+    - linters: [lll]
+      path: graph/schema.resolvers.go
+
+linters-settings:
+  wrapcheck:
+    ignorePackageGlobs:
+      - github.com/uptrace/bun
+  varnamelen:
+    ignore-decls:
+      - w http.ResponseWriter
+      - w io.Writer

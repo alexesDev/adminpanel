@@ -1,0 +1,48 @@
+enum Gender {
+  MALE
+  FEMALE
+  OTHER
+}
+
+type User {
+  id: Int!
+  email: String!
+  name: String
+  phone: String
+  sex: Gender
+}
+
+type Query {
+  users: [User!]!
+}
+
+input UpdateUserInputData {
+  email: String!
+  name: String
+  phone: String
+  sex: Gender
+}
+
+input UpdateUserInput {
+  id: Int!
+  data: UpdateUserInputData!
+}
+
+input DeleteUserInput {
+  id: Int!
+}
+
+type UpdateUserPayload {
+  data: User!
+}
+
+type ErrorPayload {
+  message: String!
+}
+
+union UpdateUserOrErrorPayload = UpdateUserPayload | ErrorPayload
+
+type Mutation {
+  updateUser(input: UpdateUserInput!): UpdateUserOrErrorPayload!
+  deleteUser(input: DeleteUserInput!): ErrorPayload
+}

@@ -58,7 +58,7 @@ type ComplexityRoot struct {
 	}
 
 	UpdateUserPayload struct {
-		Data func(childComplexity int) int
+		User func(childComplexity int) int
 	}
 
 	User struct {
@@ -131,12 +131,12 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.Query.Users(childComplexity), true
 
-	case "UpdateUserPayload.data":
-		if e.complexity.UpdateUserPayload.Data == nil {
+	case "UpdateUserPayload.user":
+		if e.complexity.UpdateUserPayload.User == nil {
 			break
 		}
 
-		return e.complexity.UpdateUserPayload.Data(childComplexity), true
+		return e.complexity.UpdateUserPayload.User(childComplexity), true
 
 	case "User.email":
 		if e.complexity.User.Email == nil {
@@ -183,7 +183,6 @@ func (e *executableSchema) Exec(ctx context.Context) graphql.ResponseHandler {
 	inputUnmarshalMap := graphql.BuildUnmarshalerMap(
 		ec.unmarshalInputDeleteUserInput,
 		ec.unmarshalInputUpdateUserInput,
-		ec.unmarshalInputUpdateUserInputData,
 	)
 	first := true
 
@@ -262,8 +261,8 @@ type Query {
   users: [User!]!
 }
 
-input UpdateUserInputData {
-  email: String!
+input UpdateUserPatchInput {
+  email: String
   name: String
   phone: String
   sex: Gender
@@ -271,7 +270,7 @@ input UpdateUserInputData {
 
 input UpdateUserInput {
   id: Int!
-  data: UpdateUserInputData!
+  patch: UpdateUserPatchInput!
 }
 
 input DeleteUserInput {
@@ -279,7 +278,7 @@ input DeleteUserInput {
 }
 
 type UpdateUserPayload {
-  data: User!
+  user: User!
 }
 
 type ErrorPayload {
@@ -723,8 +722,8 @@ func (ec *executionContext) fieldContext_Query___schema(ctx context.Context, fie
 	return fc, nil
 }
 
-func (ec *executionContext) _UpdateUserPayload_data(ctx context.Context, field graphql.CollectedField, obj *model.UpdateUserPayload) (ret graphql.Marshaler) {
-	fc, err := ec.fieldContext_UpdateUserPayload_data(ctx, field)
+func (ec *executionContext) _UpdateUserPayload_user(ctx context.Context, field graphql.CollectedField, obj *model.UpdateUserPayload) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_UpdateUserPayload_user(ctx, field)
 	if err != nil {
 		return graphql.Null
 	}
@@ -737,7 +736,7 @@ func (ec *executionContext) _UpdateUserPayload_data(ctx context.Context, field g
 	}()
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return obj.Data, nil
+		return obj.User, nil
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -754,7 +753,7 @@ func (ec *executionContext) _UpdateUserPayload_data(ctx context.Context, field g
 	return ec.marshalNUser2ᚖbackendᚋmodelᚐUser(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) fieldContext_UpdateUserPayload_data(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+func (ec *executionContext) fieldContext_UpdateUserPayload_user(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
 	fc = &graphql.FieldContext{
 		Object:     "UpdateUserPayload",
 		Field:      field,
@@ -2798,7 +2797,7 @@ func (ec *executionContext) unmarshalInputUpdateUserInput(ctx context.Context, o
 		asMap[k] = v
 	}
 
-	fieldsInOrder := [...]string{"id", "data"}
+	fieldsInOrder := [...]string{"id", "patch"}
 	for _, k := range fieldsInOrder {
 		v, ok := asMap[k]
 		if !ok {
@@ -2813,63 +2812,11 @@ func (ec *executionContext) unmarshalInputUpdateUserInput(ctx context.Context, o
 			if err != nil {
 				return it, err
 			}
-		case "data":
+		case "patch":
 			var err error
 
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("data"))
-			it.Data, err = ec.unmarshalNUpdateUserInputData2ᚖbackendᚋmodelᚐUpdateUserInputData(ctx, v)
-			if err != nil {
-				return it, err
-			}
-		}
-	}
-
-	return it, nil
-}
-
-func (ec *executionContext) unmarshalInputUpdateUserInputData(ctx context.Context, obj interface{}) (model.UpdateUserInputData, error) {
-	var it model.UpdateUserInputData
-	asMap := map[string]interface{}{}
-	for k, v := range obj.(map[string]interface{}) {
-		asMap[k] = v
-	}
-
-	fieldsInOrder := [...]string{"email", "name", "phone", "sex"}
-	for _, k := range fieldsInOrder {
-		v, ok := asMap[k]
-		if !ok {
-			continue
-		}
-		switch k {
-		case "email":
-			var err error
-
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("email"))
-			it.Email, err = ec.unmarshalNString2string(ctx, v)
-			if err != nil {
-				return it, err
-			}
-		case "name":
-			var err error
-
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("name"))
-			it.Name, err = ec.unmarshalOString2ᚖstring(ctx, v)
-			if err != nil {
-				return it, err
-			}
-		case "phone":
-			var err error
-
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("phone"))
-			it.Phone, err = ec.unmarshalOString2ᚖstring(ctx, v)
-			if err != nil {
-				return it, err
-			}
-		case "sex":
-			var err error
-
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("sex"))
-			it.Sex, err = ec.unmarshalOGender2ᚖbackendᚋmodelᚐGender(ctx, v)
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("patch"))
+			it.Patch, err = ec.unmarshalNUpdateUserPatchInput2map(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -3058,9 +3005,9 @@ func (ec *executionContext) _UpdateUserPayload(ctx context.Context, sel ast.Sele
 		switch field.Name {
 		case "__typename":
 			out.Values[i] = graphql.MarshalString("UpdateUserPayload")
-		case "data":
+		case "user":
 
-			out.Values[i] = ec._UpdateUserPayload_data(ctx, field, obj)
+			out.Values[i] = ec._UpdateUserPayload_user(ctx, field, obj)
 
 			if out.Values[i] == graphql.Null {
 				invalids++
@@ -3496,11 +3443,6 @@ func (ec *executionContext) unmarshalNUpdateUserInput2backendᚋmodelᚐUpdateUs
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) unmarshalNUpdateUserInputData2ᚖbackendᚋmodelᚐUpdateUserInputData(ctx context.Context, v interface{}) (*model.UpdateUserInputData, error) {
-	res, err := ec.unmarshalInputUpdateUserInputData(ctx, v)
-	return &res, graphql.ErrorOnPath(ctx, err)
-}
-
 func (ec *executionContext) marshalNUpdateUserOrErrorPayload2backendᚋmodelᚐUpdateUserOrErrorPayload(ctx context.Context, sel ast.SelectionSet, v model.UpdateUserOrErrorPayload) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
@@ -3509,6 +3451,10 @@ func (ec *executionContext) marshalNUpdateUserOrErrorPayload2backendᚋmodelᚐU
 		return graphql.Null
 	}
 	return ec._UpdateUserOrErrorPayload(ctx, sel, v)
+}
+
+func (ec *executionContext) unmarshalNUpdateUserPatchInput2map(ctx context.Context, v interface{}) (map[string]interface{}, error) {
+	return v.(map[string]interface{}), nil
 }
 
 func (ec *executionContext) marshalNUser2ᚕᚖbackendᚋmodelᚐUserᚄ(ctx context.Context, sel ast.SelectionSet, v []*model.User) graphql.Marshaler {

@@ -16,8 +16,8 @@ type Query {
   users: [User!]!
 }
 
-input UpdateUserInputData {
-  email: String!
+input UpdateUserPatchInput {
+  email: String
   name: String
   phone: String
   sex: Gender
@@ -25,7 +25,7 @@ input UpdateUserInputData {
 
 input UpdateUserInput {
   id: Int!
-  data: UpdateUserInputData!
+  patch: UpdateUserPatchInput!
 }
 
 input DeleteUserInput {
@@ -33,7 +33,7 @@ input DeleteUserInput {
 }
 
 type UpdateUserPayload {
-  data: User!
+  user: User!
 }
 
 type ErrorPayload {

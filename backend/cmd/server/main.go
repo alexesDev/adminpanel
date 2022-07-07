@@ -3,22 +3,17 @@ package main
 import (
 	"log"
 	"net/http"
-	"os"
 
 	"backend/env"
 	"backend/graph"
 	"backend/graph/generated"
+	"backend/utils"
 
 	"github.com/99designs/gqlgen/graphql/handler"
 	"github.com/99designs/gqlgen/graphql/playground"
 )
 
 func main() {
-	addr := os.Getenv("ADDR")
-	if addr == "" {
-		addr = ":5588"
-	}
-
 	e, err := env.New()
 	if err != nil {
 		log.Fatal(err)
@@ -29,6 +24,8 @@ func main() {
 
 	http.Handle("/", playground.Handler("GraphQL playground", "/graphql"))
 	http.Handle("/graphql", srv)
+
+	addr := utils.Getenv("ADDR", ":5588")
 
 	log.Println("listen", addr)
 	log.Fatal(http.ListenAndServe(addr, nil))

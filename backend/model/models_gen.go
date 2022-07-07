@@ -23,19 +23,12 @@ type ErrorPayload struct {
 func (ErrorPayload) IsUpdateUserOrErrorPayload() {}
 
 type UpdateUserInput struct {
-	ID   int                  `json:"id"`
-	Data *UpdateUserInputData `json:"data"`
-}
-
-type UpdateUserInputData struct {
-	Email string  `json:"email"`
-	Name  *string `json:"name"`
-	Phone *string `json:"phone"`
-	Sex   *Gender `json:"sex"`
+	ID    int                    `json:"id"`
+	Patch map[string]interface{} `json:"patch"`
 }
 
 type UpdateUserPayload struct {
-	Data *User `json:"data"`
+	User *User `json:"user"`
 }
 
 func (UpdateUserPayload) IsUpdateUserOrErrorPayload() {}

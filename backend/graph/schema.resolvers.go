@@ -14,7 +14,7 @@ import (
 
 // UpdateUser is the resolver for the updateUser field.
 func (r *mutationResolver) UpdateUser(ctx context.Context, input model.UpdateUserInput) (model.UpdateUserOrErrorPayload, error) {
-	payload, err := updateuser.Resolve(r.Env, input)
+	payload, err := updateuser.Resolve(r.Env, ctx, input)
 	if err != nil {
 		return nil, fmt.Errorf("failed to updateUser.Resolve: %w", err)
 	}
@@ -24,7 +24,7 @@ func (r *mutationResolver) UpdateUser(ctx context.Context, input model.UpdateUse
 
 // DeleteUser is the resolver for the deleteUser field.
 func (r *mutationResolver) DeleteUser(ctx context.Context, input model.DeleteUserInput) (*model.ErrorPayload, error) {
-	payload, err := deleteuser.Resolve(r.Env, input)
+	payload, err := deleteuser.Resolve(r.Env, ctx, input)
 	if err != nil {
 		return nil, fmt.Errorf("failed to deleteUser.Resolve: %w", err)
 	}

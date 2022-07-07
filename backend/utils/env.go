@@ -1,11 +1,11 @@
-package env
+package utils
 
 import (
 	"log"
 	"os"
 )
 
-func getenv(key string, defaultValue string) string {
+func Getenv(key string, defaultValue string) string {
 	value := os.Getenv(key)
 	if value == "" {
 		value = defaultValue

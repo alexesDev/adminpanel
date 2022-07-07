@@ -3,6 +3,8 @@ package env
 import (
 	"database/sql"
 
+	"backend/utils"
+
 	"github.com/jinzhu/inflection"
 	"github.com/uptrace/bun"
 	"github.com/uptrace/bun/dialect/pgdialect"
@@ -21,7 +23,7 @@ func New() (*Env, error) {
 		return "app." + inflection.Plural(n)
 	})
 
-	dsn := getenv("CONNECTION_STRING", "postgres://staging:staging@localhost:7232/staging?sslmode=disable")
+	dsn := utils.Getenv("CONNECTION_STRING", "postgres://staging:staging@localhost:7232/staging?sslmode=disable")
 	sqldb := sql.OpenDB(pgdriver.NewConnector(pgdriver.WithDSN(dsn)))
 	env.db = bun.NewDB(sqldb, pgdialect.New())
 
